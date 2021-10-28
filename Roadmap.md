@@ -7,16 +7,21 @@
 * API's im using:
   - [Nomic](https://p.nomics.com/cryptocurrency-bitcoin-api)
 
+#
+
 Ideas:
 
 - Monitoring (Will implement after requests are done.)
 
+#
+
 Working on:
 
-- Discord Bot Logic:
+- Discord Bot(0.0.2):
 
-  - Embedding Text
-  - DRY
+  - Monitoring Logic
+  - Polish up embed for formality.
 
-- Request:
-  - Calling API (working on now)
+- Request(0.0.1):
+  - Calling All prices.
+  - Moving to stocks next, will look into other API's

@@ -5,8 +5,7 @@
 - Add Stocks in after implementation of Cryptocurrencies
 
 * API's im using:
-  - [Lunar](https://lunarcrush.com/developers/docs#)
-  - [Polygon.io](https://polygon.io/)
+  - [Nomic](https://p.nomics.com/cryptocurrency-bitcoin-api)
 
 Ideas:
 
@@ -20,4 +19,4 @@ Working on:
   - DRY
 
 - Request:
-  - Calling API's (Lunar)
+  - Calling API (working on now)

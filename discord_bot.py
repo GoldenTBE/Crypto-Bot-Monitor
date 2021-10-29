@@ -14,43 +14,44 @@ class CryptoTracker(discord.Client, discord.Embed):
         self._description = "Tracking Crypto with ease"
         self._dev_url = "https://github.com/GoldenTBE"
         self._dev_pfp = "https://avatars.githubusercontent.com/u/54921144?v=4"
-        self._footer = 'Tracking made easy | Version 0.0.2 | Made with Love '
+        self._footer = 'Tracking made easy | Version 0.1.2 | Made with Love '
         self._crypto_thumbnails = cc_thumbnails
-        
-
     
     async def on_ready(self): #Function tells user if bot is logged in. 
         print(f'Logged in as {self.user}')
     
     
     async def on_message(self, message): #awaiting messages from user
+        command = message.content.lower()
         try:
-            if message.content == '!help': #HELP IN FOR USERS
+            if command == '!help': #HELP IN FOR USERS
                 print(f'Help Command Used by: {message.author}')
                 await message.channel.send(embed= self.help_embed())
 
-            elif message.content == '!BTC': #BTC INFO 
+            elif command == '!btc': #BTC INFO 
                 print(f'BTC Info called by: {message.author}')
                 await message.channel.send(embed = self.crypto_price('BTC','Bitcoin'))
                 
-            elif message.content == '!ADA': #ADA INFO
+            elif command == '!ada': #ADA INFO
                 print(f'ADA Info called by: {message.author}')
                 await message.channel.send(embed = self.crypto_price('ADA','Cardano'))
 
-            elif message.content == '!ETH': 
+            elif command == '!eth': 
                 print(f'ETH Info called by: {message.author}')
                 await message.channel.send(embed = self.crypto_price('ETH','Ethereum'))
 
-            elif message.content == '!error':
+            elif command == '!error':
                 print(f'Error Info called by: {message.author}')
-                await message.channel.send(embed = self.error_embed()) 
+                await message.channel.send(embed = self.error_embed(f'testing error')) 
 
-            elif message.content == '!Monitor':
-                await message.channel.send(embed = self.error_embed())    
+            elif command == '!Monitor':
+                await message.channel.send(embed = self.error_embed())  
+
         except Exception as e:
             print(e)
             await message.channel.send('<@281626075996356610>')
-            await message.channel.send(embed = self.error_embed())
+            await message.channel.send(embed = self.error_embed(e))
+            
 
     
 
@@ -85,17 +86,18 @@ class CryptoTracker(discord.Client, discord.Embed):
         embed.set_footer(text = self._footer)
         
         for key, value in help_info.items():
-            embed.add_field(name = "__" + key + "__", value = "`" + value +"`", inline = False)
+            embed.add_field(name= "__" + key + "__", value = "`" + value +"`", inline = False)
 
         print(f'Sent Embed {time.ctime()}')
         return embed
 
-    def error_embed(self): #Sent when Error Ocuurs
+    def error_embed(self,error): #Sent when Error Ocuurs
         embed = embed = discord.Embed(
-            title = 'Error!',
-            description = 'Alerting Dev! :hot_face:',
+            title = 'Error...Alerting Dev! :hot_face:',
+            description = error,
             colour = discord.Colour.red()
         )
+
         embed.set_author(name = self._dev, url = self._dev_url, icon_url = self._dev_pfp)
         embed.set_footer(text = self._footer)
 

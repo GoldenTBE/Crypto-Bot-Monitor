@@ -26,9 +26,22 @@
   - Improvements to be made:
     - Truncate Numbers from API request(takes too much room)
 
+#
+
 ## `Update Version 0.1.1 (discord_bot)`
 
 ### 10/29/21
 
 - Formmating Changes
 - Moved most strings to string_helper.py, easier to read code :)
+
+#
+
+## `Update Version 0.1.2 (discord_bot)`
+
+### 10/29/21
+
+- Changed how you call commands. (Not case-sensitive anymore)
+  - Ex: !btc or !BTC is the same.
+
+#

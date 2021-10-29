@@ -9,7 +9,7 @@
 
 #
 
-## `Update Version 0.0.1 (request_module)`
+## `Update Version 0.1.0 (request_module)`
 
 ### 10/28/21
 
@@ -18,10 +18,17 @@
 
 #
 
-## `Update Version 0.0.2 (discord_bot)`
+## `Update Version 0.1.0 (discord_bot)`
 
 ### 10/28/21
 
 - Implemented Calling Crypto Prices.
   - Improvements to be made:
     - Truncate Numbers from API request(takes too much room)
+
+## `Update Version 0.1.1 (discord_bot)`
+
+### 10/29/21
+
+- Formmating Changes
+- Moved most strings to string_helper.py, easier to read code :)

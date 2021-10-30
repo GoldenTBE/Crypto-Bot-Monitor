@@ -9,7 +9,7 @@
 
 #
 
-## `Update Version 0.1.0 (request_module)`
+## `Update Version 1.0.0 (request_module)`
 
 ### 10/28/21
 
@@ -18,7 +18,7 @@
 
 #
 
-## `Update Version 0.1.0 (discord_bot)`
+## `Update Version 1.0.1 (discord_bot)`
 
 ### 10/28/21
 
@@ -28,7 +28,7 @@
 
 #
 
-## `Update Version 0.1.1 (discord_bot)`
+## `Update Version 1.1.1 (discord_bot)`
 
 ### 10/29/21
 
@@ -37,7 +37,7 @@
 
 #
 
-## `Update Version 0.1.2 (discord_bot)`
+## `Update Version 1.2.1 (discord_bot)`
 
 ### 10/29/21
 
@@ -45,3 +45,10 @@
   - Ex: !btc or !BTC is the same.
 
 #
+
+## `Update Version 2.2.1 (discord_bot)`
+
+### 10/29/21
+
+- Changed Logic Flow for on_message function.
+- Added all prices function

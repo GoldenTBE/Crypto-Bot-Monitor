@@ -1,7 +1,5 @@
 import discord
 from discord import client
-from discord.embeds import Embed
-from discord.ext import commands
 import time
 from Keys import discord_key
 from get_requests import get_crypto_data, all_crypto_prices
@@ -14,49 +12,32 @@ class CryptoTracker(discord.Client, discord.Embed):
         self._description = "Tracking Crypto with ease"
         self._dev_url = "https://github.com/GoldenTBE"
         self._dev_pfp = "https://avatars.githubusercontent.com/u/54921144?v=4"
-        self._footer = 'Tracking made easy | Version 0.1.2 | Made with Love '
+        self._footer = 'Tracking made easy | Version 2.2.1 | Fast and Efficient'
         self._crypto_thumbnails = cc_thumbnails
     
     async def on_ready(self): #Function tells user if bot is logged in. 
         print(f'Logged in as {self.user}')
     
-    
     async def on_message(self, message): #awaiting messages from user
-        command = message.content.lower()
-        try:
-            if command == '!help': #HELP IN FOR USERS
-                print(f'Help Command Used by: {message.author}')
-                await message.channel.send(embed= self.help_embed())
-
-            elif command == '!btc': #BTC INFO 
-                print(f'BTC Info called by: {message.author}')
-                await message.channel.send(embed = self.crypto_price('BTC','Bitcoin'))
+        if message.content.startswith('!'):
+            try:
+                command = message.content.lower()[1:]
+                print(command)
+                if command in commands_dict:
+                    if commands_dict[command] == 'help':
+                        await message.channel.send(embed = self.help_embed())
+                    else:
+                        await message.channel.send(embed = self.crypto_price(command,commands_dict[command]))
+            except Exception as e:
+                print(e)
+                await message.channel.send('<@281626075996356610>')
+                await message.channel.send(embed = self.error_embed(e))
                 
-            elif command == '!ada': #ADA INFO
-                print(f'ADA Info called by: {message.author}')
-                await message.channel.send(embed = self.crypto_price('ADA','Cardano'))
-
-            elif command == '!eth': 
-                print(f'ETH Info called by: {message.author}')
-                await message.channel.send(embed = self.crypto_price('ETH','Ethereum'))
-
-            elif command == '!error':
-                print(f'Error Info called by: {message.author}')
-                await message.channel.send(embed = self.error_embed(f'testing error')) 
-
-            elif command == '!Monitor':
-                await message.channel.send(embed = self.error_embed())  
-
-        except Exception as e:
-            print(e)
-            await message.channel.send('<@281626075996356610>')
-            await message.channel.send(embed = self.error_embed(e))
-            
-
-    
-
     def crypto_price(self,currency,name): 
-        returned_data = get_crypto_data(currency)
+        if currency == 'all': #calls all_prices, this returns all coins in string_helper
+            returned_data = all_crypto_prices()
+        else:
+            returned_data = get_crypto_data(currency.upper()) #need to .upper() due to logic in prev function
         embed = discord.Embed(
             title = name,
             description = self._description,
@@ -65,13 +46,12 @@ class CryptoTracker(discord.Client, discord.Embed):
         embed.set_author(name = self._dev, url = self._dev_url, icon_url = self._dev_pfp)
         embed.set_footer(text = self._footer)
         embed.set_thumbnail(url = self._crypto_thumbnails[currency])
-
+        embed.add_field(name = "__Currency__", value = ':flag_us:')
         for key, value in returned_data.items():
             if key == "All Time High":
                 embed.add_field(name = "__" + key + "__", value = "`$"+ value + "`", inline = False)
             else:
                 embed.add_field(name = "__" + key + "__", value = "`$"+ value[:7]+"`", inline = False)
-    
     
         print(f'Sent Embed {time.ctime()}')
         return embed
@@ -102,7 +82,6 @@ class CryptoTracker(discord.Client, discord.Embed):
         embed.set_footer(text = self._footer)
 
         return embed
-
 
 if __name__ == "__main__":
     client = CryptoTracker()

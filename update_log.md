@@ -52,3 +52,14 @@
 
 - Changed Logic Flow for on_message function.
 - Added all prices function
+
+#
+
+## `Update Version 2.0.0 (request_module)`
+
+### 10/30/21
+
+- Added get_all_prices function
+- Added function to calculate price for 1hr, 1d, ... - file is data_handler.py
+
+#

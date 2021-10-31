@@ -1,36 +1,50 @@
 import requests
 import json
-from Keys import Nomics_api
 
+from requests.models import Response
+from Keys import Nomics_api
+from data_handler import change_to_price
 
 def get_crypto_data(crypto):
-    url = "https://api.nomics.com/v1/currencies/ticker?key=" + Nomics_api + "&ids="+ crypto +"&interval=1h,1d&per-page=100&page=1"
+    url = "https://api.nomics.com/v1/currencies/ticker?key=" + Nomics_api + "&ids="+ crypto +"&interval=1h,1d,7d,30d&per-page=100&page=1"
     r = requests.get(url) #get_request to API 
-    resp_json = json.loads(r.text) #conver to python dict.
     if r.status_code != 200: #200 == good request; tests for bad request, discord bot handles error
         raise RuntimeError 
-    x = json.dumps(resp_json, indent=2)
-    print(x) #easier to read API response for dev.
+    #x = json.dumps(resp_json, indent=2)
+    #print(x) #easier to read API response for dev.
+    resp_json = json.loads(r.text) #conver to python dict. 
+    response = resp_json[0] 
+    
+    all_time_high = (response['high']) 
+    all_time_high_date = (response['high_timestamp'])
+
+    dates_needed = ['1h','1d','7d','30d']
+    price = []
+    for i in dates_needed:
+        price.append(change_to_price(response['price'],response[i]['price_change']))
 
     
-    all_time_high = (resp_json[0]['high']) #all time high
-    all_time_high_date = (resp_json[0]['high_timestamp'])
 
     data = { #returning dict, should be easier when embedding in discord bot - O(1)
-        "price" :(resp_json[0]['price']) + ' USD', #current_price
-        "picture" : (resp_json[0]['logo_url']), #image for discord_bot
-        "market_cap" : (resp_json[0]['market_cap']), #market_cap 
-        "all_time_high" : (resp_json[0]['high']), #all time high
-        "all_time_high_date" : (resp_json[0]['high_timestamp']), #date of all time high 
-        "high_with_date" : (all_time_high + ' @ ' + all_time_high_date[:10]),
-        "change_1hr" : (resp_json[0]['1h']['price_change']), #price change within 1hr
-        "change_1d" : (resp_json[0]['1d']['price_change']) #price change within 1d
+        "Current Price" :(resp_json[0]['price']), #current_price
+        "All Time High" : (all_time_high[:6] + ' @ ' + all_time_high_date[:10]),
+        "Price 1 Hour ago" : (price[0]), #price change within 1hr
+        "Price 1 Day ago" : (price[1]), #price change within 1d
+        "Price 7 Days ago" : (price[2]), #price change within 7d
+        "Price 30 Day ago" : (price[3]), #price change within 30d
     }
 
     return data
 
-def all_crypto_prices(): #future
-    pass
+def all_crypto_prices(): 
+    cryptocurrencies = 'BTC,ETH,ADA,SOL,DOGE,LTC,SHIB'
+    url = "https://api.nomics.com/v1/currencies/ticker?key=" + Nomics_api + "&ids="+ cryptocurrencies 
+    r = requests.get(url) 
+    resp_json = json.loads(r.text)   
+    data = {}
+    for i in range(7):
+        data[resp_json[i]['name'] + ' Price'] = resp_json[i]['price'] 
+    return data
 
 
 if __name__ == "__main__":

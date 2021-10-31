@@ -17,11 +17,13 @@ Ideas:
 
 Working on:
 
-- Discord Bot(0.0.2):
+- Discord Bot(0.2.0):
 
   - Monitoring Logic
   - Polish up embed for formality.
 
-- Request(0.0.1):
+- Request(0.1.0):
   - Calling All prices.
   - Moving to stocks next, will look into other API's
+
+#

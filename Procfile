@@ -1,1 +1,2 @@
-worker : discord_bot.py
+heroku ps:scale worker = 1
+worker : python discord_bot.py

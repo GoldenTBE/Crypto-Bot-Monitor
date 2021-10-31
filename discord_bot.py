@@ -1,10 +1,14 @@
+from dotenv import load_dotenv
+import os
 import discord
 from discord import client
 from discord.ext import tasks, commands
 import time
-from Keys import discord_key
 from get_requests import get_crypto_data, all_crypto_prices
 from string_helper import *
+
+load_dotenv()
+discord_key = os.getenv("discord_key")
 
 class Tracker(discord.Client, discord.Embed, commands.Cog):
     def __init__(self, *, loop=None, **options):
@@ -65,7 +69,12 @@ class Tracker(discord.Client, discord.Embed, commands.Cog):
         embed.set_author(name = self._dev, url = self._dev_url, icon_url = self._dev_pfp)
         embed.set_footer(text = self._footer)
         embed.set_thumbnail(url = self._crypto_thumbnails[currency])
-        embed.add_field(name = "__Currency__", value = ':flag_us:')
+        embed.add_field(name = "__Currency__", value = ':flag_us:',inline= False)
+
+        t = time.localtime()
+        current_time = time.strftime("%H:%M:%S", t)
+        embed.add_field(name = "__Time__", value = "`" + current_time + "`",inline=False)
+
         for key, value in returned_data.items():
             if key == "All Time High":
                 embed.add_field(name = "__" + key + "__", value = "`$"+ value + "`", inline = False)

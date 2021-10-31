@@ -109,6 +109,6 @@ class Tracker(discord.Client, discord.Embed, commands.Cog):
         embed.set_footer(text = self._footer)
         return embed
 
-if __name__ == "__main__":
-    client = Tracker()
-    client.run(discord_key) 
+
+client = Tracker()
+client.run(discord_key) 

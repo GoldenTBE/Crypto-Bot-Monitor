@@ -3,10 +3,8 @@ import json
 import os
 from requests.models import Response
 from data_handler import change_to_price
-from dotenv import load_dotenv
 
-load_dotenv()
-Nomics_api = os.environ("NOMICS_API")
+Nomics_api = os.environ(['NOMICS_API'])
 
 def get_crypto_data(crypto):
     url = "https://api.nomics.com/v1/currencies/ticker?key=" + Nomics_api + "&ids="+ crypto +"&interval=1h,1d,7d,30d&per-page=100&page=1"

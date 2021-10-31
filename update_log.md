@@ -63,3 +63,12 @@
 - Added function to calculate price for 1hr, 1d, ... - file is data_handler.py
 
 #
+
+## `Update Version 2.3.1 (discord_bot)`
+
+### 10/31/21
+
+- Added monitor mode
+- changed error function to handle alerts & errors.
+
+#

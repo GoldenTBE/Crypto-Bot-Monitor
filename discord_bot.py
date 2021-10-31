@@ -8,7 +8,7 @@ from get_requests import get_crypto_data, all_crypto_prices
 from string_helper import *
 
 load_dotenv()
-discord_key = os.getenv("discord_key")
+discord_key = os.environ("DISCORD_TOKEN")
 
 class Tracker(discord.Client, discord.Embed, commands.Cog):
     def __init__(self, *, loop=None, **options):

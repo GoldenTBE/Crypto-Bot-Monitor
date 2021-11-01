@@ -2,12 +2,12 @@ from dotenv import load_dotenv
 import os
 import discord
 from discord import client
-from discord.ext import tasks, commands
+from discord.ext import tasks
 import time
 from get_requests import get_crypto_data, all_crypto_prices
 from string_helper import *
 
-class MyClient(discord.Client, discord.Embed, commands.Cog):
+class MyClient(discord.Client, discord.Embed,):
     def __init__(self, *, loop=None, **options):
         super().__init__(loop=loop, **options)
         self._dev = "DY"
@@ -106,7 +106,7 @@ class MyClient(discord.Client, discord.Embed, commands.Cog):
         embed.set_footer(text = self._footer)
         return embed
 
-while True:
+if __name__ == "__main__":
     load_dotenv()
     discord_key = os.getenv("DISCORD_TOKEN")
     client = MyClient()

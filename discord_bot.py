@@ -1,3 +1,4 @@
+from dotenv import load_dotenv
 import os
 import discord
 from discord import client
@@ -5,6 +6,8 @@ from discord.ext import tasks, commands
 import time
 from get_requests import get_crypto_data, all_crypto_prices
 from string_helper import *
+
+
 
 class Tracker(discord.Client, discord.Embed, commands.Cog):
     def __init__(self, *, loop=None, **options):
@@ -105,6 +108,8 @@ class Tracker(discord.Client, discord.Embed, commands.Cog):
         embed.set_footer(text = self._footer)
         return embed
 
-
-client = Tracker()
-client.run(os.environ['DISCORD_TOKEN']) 
+if __name__ == "__main__":
+    load_dotenv()
+    discord_key = os.getenv("DISCORD_TOKEN")
+    client = Tracker()
+    client.run(discord_key) 

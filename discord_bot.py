@@ -108,7 +108,7 @@ class Tracker(discord.Client, discord.Embed, commands.Cog):
         embed.set_footer(text = self._footer)
         return embed
 
-if __name__ == "__main__":
+while True:
     load_dotenv()
     discord_key = os.getenv("DISCORD_TOKEN")
     client = Tracker()

@@ -32,6 +32,7 @@ class MyClient(discord.Client, discord.Embed,):
                         await message.channel.send(embed = self.alerts('Started Monitor!', 'All Prices will be sent every 30 minutes, "!stop" to end monitor'))
                         self.start_monitor(message.channel)
                     elif commands_dict[command] == 'stop':
+                        await message.channel.send(embed = self.alerts('Stopped Monitor.', '!help for other features.'))
                         self.stop_monitor()
                     else:
                         await message.channel.send(embed = self.crypto_price(command,commands_dict[command]))

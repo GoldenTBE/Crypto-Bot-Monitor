@@ -7,9 +7,7 @@ import time
 from get_requests import get_crypto_data, all_crypto_prices
 from string_helper import *
 
-
-
-class Tracker(discord.Client, discord.Embed, commands.Cog):
+class MyClient(discord.Client, discord.Embed, commands.Cog):
     def __init__(self, *, loop=None, **options):
         super().__init__(loop=loop, **options)
         self._dev = "DY"
@@ -111,5 +109,5 @@ class Tracker(discord.Client, discord.Embed, commands.Cog):
 while True:
     load_dotenv()
     discord_key = os.getenv("DISCORD_TOKEN")
-    client = Tracker()
+    client = MyClient()
     client.run(discord_key) 
